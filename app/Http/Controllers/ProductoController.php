@@ -4,6 +4,14 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+/**
+ * Class ProductoController
+ *
+ * Encargado de todas las operaciones de los productos.
+ *
+ * @author Camilo Montt <cmonttf@gmail.com>
+ * @package App\Http\Controllers
+ */
 class ProductoController extends Controller
 {
     /**
