@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "d3c16cb86c42230c6c023d9a5d9bcf42",
+    "content-hash": "efe60fd19c0d2a07f687564928897a77",
     "packages": [
         {
             "name": "brick/math",
@@ -134,6 +134,40 @@
                 }
             ],
             "time": "2024-02-09T16:56:22+00:00"
+        },
+        {
+            "name": "cmonttf/response",
+            "version": "dev-main",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/cmonttf/Response.git",
+                "reference": "dc40b80500643baa35b9ea45eee8096ea659f968"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/cmonttf/Response/zipball/dc40b80500643baa35b9ea45eee8096ea659f968",
+                "reference": "dc40b80500643baa35b9ea45eee8096ea659f968",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^8.0"
+            },
+            "default-branch": true,
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "StdJsonResponse\\": "src/"
+                }
+            },
+            "license": [
+                "MIT"
+            ],
+            "description": "Paquete para estandarizar respuestas JSON en Laravel",
+            "support": {
+                "source": "https://github.com/cmonttf/Response/tree/v1.0.1",
+                "issues": "https://github.com/cmonttf/Response/issues"
+            },
+            "time": "2025-11-09T00:14:33+00:00"
         },
         {
             "name": "dflydev/dot-access-data",
@@ -8411,7 +8445,9 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": {},
+    "stability-flags": {
+        "cmonttf/response": 20
+    },
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {
