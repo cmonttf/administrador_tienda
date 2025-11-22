@@ -29,7 +29,7 @@ class ProductoController extends Controller
      */
     public function index()
     {
-        $response = new StdResponse("Listado de los productos.", true);
+        $response = new StdResponse("Listado de los productos.");
 
         try {
             $response->data = $this->productoService->obtenerListadoProductos();
@@ -37,10 +37,9 @@ class ProductoController extends Controller
             $response->status = false;
             $response->message = "Error inesperado: {$e->getMessage()}";
             Log::error($response->message);
-            JSONResponse::error($response);
         }
 
-        JSONResponse::success($response);
+        JSONResponse::send($response);
     }
 
     /**
