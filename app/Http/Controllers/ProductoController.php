@@ -25,7 +25,11 @@ class ProductoController extends Controller
     {}
 
     /**
-     * Display a listing of the resource.
+     * Método que enlista los productos en un listado con algunos detalles
+     *
+     * @return void Listado de los productos.
+     *
+     * @throws Exception Lanza excepción cuando algo falla.
      */
     public function index()
     {
