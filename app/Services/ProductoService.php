@@ -43,10 +43,6 @@ class ProductoService
     {
         $datos = $this->productoInterface::obtenerListadoProductos();
 
-        if (count($datos) === ConstantesHelper::CERO) {
-            throw new Exception("No se pudo obtener el listado de los productos.");
-        }
-
         return array_map(
             fn($dato) => new ListaProductoDTO(
                 $dato->nombre,
