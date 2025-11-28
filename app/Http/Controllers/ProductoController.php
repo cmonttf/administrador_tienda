@@ -27,23 +27,27 @@ class ProductoController extends Controller
     /**
      * Método que enlista los productos en un listado con algunos detalles
      *
-     * @return void Listado de los productos.
+     * @return string Listado de los productos.
      *
      * @throws Exception Lanza excepción cuando algo falla.
      */
-    public function index()
+    public function index(): string
     {
         $response = new StdResponse("Listado de los productos.");
 
         try {
-            $response->data = $this->productoService->obtenerListadoProductos();
+            $resultado = $this->productoService->obtenerListadoProductos();
         } catch (Exception $e) {
             $response->status = false;
             $response->message = "Error inesperado: {$e->getMessage()}";
             Log::error($response->message);
+
+            JSONResponse::send($response);
         }
 
-        JSONResponse::send($response);
+        return view("admin.products.index", [
+            "products" => $resultado
+        ])->render();
     }
 
     /**
@@ -51,7 +55,9 @@ class ProductoController extends Controller
      */
     public function create()
     {
-        //
+        return view("admin.products.create", [
+            "errors" => collect()
+        ])->render();
     }
 
     /**
