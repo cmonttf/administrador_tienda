@@ -16,5 +16,15 @@ Route::prefix('v1')->group(function () {
     Route::get("/", function () {
         return abort(403, "No tiene permiso");
     });
-    Route::resource('productos', ProductoController::class);
+
+    //Route::get('/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
+    Route::get('/dashboard', function () {
+        return view('admin.dashboard'); // crea luego esta vista
+    })->name('admin.dashboard');
+
+    Route::prefix('admin')->name('admin.')->group(function () {
+        Route::get('/productos', [ProductoController::class, 'index'])->name('products.index');
+        Route::get('/productos/create', [ProductoController::class, 'create'])->name('products.create');
+        Route::post('/productos', [ProductoController::class, 'store'])->name('products.store');
+    });
 });
