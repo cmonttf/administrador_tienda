@@ -4,7 +4,7 @@
 @section('page-title', 'Crear Producto')
 
 @section('content')
-<div class="max-w-2xl">
+<div class="max-w-2xl container">
     <div class="flex justify-between items-center mb-6">
         <h3 class="text-lg font-medium text-gray-900">Nuevo Producto</h3>
         <a href="{{ route('admin.products.index') }}"
@@ -22,30 +22,29 @@
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <!-- Nombre -->
                 <div>
-                    <label for="name" class="block text-sm font-medium text-gray-700 mb-2">Nombre *</label>
-                    <div class="w-full px-3 py-2 border {{ $errors->has('name') ? 'border-red-500' : 'border-gray-300' }} rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
-                    <input type="text" name="name" id="name" value="{{ old('name') }}" required>
+                    <label for="nombre" class="block text-sm font-medium text-gray-700 mb-2">Nombre *</label>
+                    <div class="w-full px-3 py-2 border {{ $errors->has('nombre') ? 'border-red-500' : 'border-gray-300' }} rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                    <input type="text" name="nombre" id="nombre" value="{{ old('nombre') }}" required>
                     </div>
                 </div>
 
                 <!-- Precio -->
                 <div>
                     <label for="price" class="block text-sm font-medium text-gray-700 mb-2">Precio ($)*</label>
-                    <textarea name="description"
-                        id="description"
+                    <input name="precio"
+                        id="precio"
                         rows="4"
                         class="w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
-                        {{ old('description') }}
-                    </textarea>
+                        {{ old('precio') }}
 
                 </div>
             </div>
 
             <!-- Descripción -->
             <div class="mt-6">
-                <label for="description" class="block text-sm font-medium text-gray-700 mb-2">Descripción</label>
-                <textarea name="description"
-                          id="description"
+                <label for="descripcion" class="block text-sm font-medium text-gray-700 mb-2">Descripción</label>
+                <textarea name="descripcion"
+                          id="descripcion"
                           rows="4"
                           class="w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"></textarea>
             </div>
@@ -63,19 +62,18 @@
                            id="stock"
                            min="0"
                            value="{{ old('stock', 0) }}"
-                           class="w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500>
+                           class="w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
                 </div>
 
-                <!-- Estado -->
+                <!-- Costo -->
                 <div>
-                    <label class="flex items-center">
-                        <input type="checkbox"
-                               name="active"
-                               value="1"
-                               {{ old('active', true) ? 'checked' : '' }}
-                               class="rounded border-gray-300 text-blue-600 shadow-sm focus:border-blue-500 focus:ring-blue-500">
-                        <span class="ml-2 text-sm text-gray-700">Producto Activo</span>
-                    </label>
+                    <label for="costo" class="block text-sm font-medium text-gray-700 mb-2">Costo ($)*</label>
+                    <input type="number"
+                            name="costo"
+                            id="costo"
+                            value="{{ old('costo', 0) }}"
+                            class="w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+
                 </div>
             </div>
 
