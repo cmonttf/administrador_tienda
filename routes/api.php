@@ -13,9 +13,9 @@ Route::get("/", function () {
 });
 
 Route::prefix('v1')->group(function () {
-    Route::get("/", function () {
-        return abort(403, "No tiene permiso");
-    });
+    Route::get('/', function () {
+        return view('admin.mantencion'); // o redirect('/v1/admin/dashboard')
+    })->name('admin.mantencion');
 
     //Route::get('/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
     Route::get('/dashboard', function () {
