@@ -5,55 +5,82 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin - @yield('title', 'Panel de Administración')</title>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+    <style>
+        /* Sidebar fija en desktop */
+        @media (min-width: 992px) {
+            .sidebar-desktop {
+                position: fixed !important;
+                top: 0;
+                left: 0;
+                height: 100vh;
+                z-index: 1040;
+                width: 280px;
+                transform: none !important;
+                border-right: 1px solid #dee2e6;
+            }
+            .main-content-desktop {
+                margin-left: 280px;
+            }
+        }
+        .sidebar-nav .nav-link {
+            border-radius: 0.5rem;
+            margin: 0.25rem 1rem;
+        }
+        .sidebar-nav .nav-link.active {
+            background-color: rgba(13, 110, 253, 0.15);
+            color: #0d6efd;
+        }
+    </style>
 </head>
-<body class="bg-gray-100">
-    <div class="flex h-screen">
-        <!-- Menú Lateral -->
-        <aside class="w-64 bg-white shadow-lg">
-            <div class="p-6 border-b">
-                <h1 class="text-xl font-bold text-gray-800">Admin Panel</h1>
+<body class="bg-light">
+    <div class="d-flex min-vh-100">
+        <!-- Sidebar fija DESKTOP / Offcanvas MÓVIL -->
+        <div class="bg-white sidebar-desktop offcanvas-lg offcanvas-start shadow-lg" tabindex="-1" id="sidebarMenu">
+            <div class="p-4 border-bottom bg-primary text-white">
+                <h5 class="mb-0"><i class="bi bi-gear-fill me-2"></i>Admin Panel</h5>
             </div>
-            <nav class="mt-6 px-4">
-                <a href="{{ url("/") }}" class="flex items-center p-3 text-gray-700 hover:bg-gray-100 rounded-lg {{ request()->routeIs('admin.dashboard') ? 'bg-blue-50 text-blue-600' : '' }}">
-                    <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path>
-                    </svg>
-                    Dashboard
+            <nav class="sidebar-nav p-2 mt-3">
+                <a class="nav-link {{ request()->routeIs('admin.dashboard') ? 'active' : '' }}" href="{{ route('admin.dashboard') }}">
+                    <i class="bi bi-house-door fs-5 me-3"></i>Dashboard
                 </a>
-                <a href="{{ url("/") }}" class="flex items-center p-3 mt-2 text-gray-700 hover:bg-gray-100 rounded-lg {{ request()->routeIs('admin.users.*') ? 'bg-blue-50 text-blue-600' : '' }}">
-                    <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"></path>
-                    </svg>
-                    Usuarios
+                <a class="nav-link {{ request()->routeIs('admin.mantencion') ? 'active' : '' }}" href="{{ route('admin.mantencion') }}">
+                    <i class="bi bi-people fs-5 me-3"></i>Usuarios
                 </a>
-                <a href="{{ route('admin.products.index') }}" class="flex items-center p-3 mt-2 text-gray-700 hover:bg-gray-100 rounded-lg {{ request()->routeIs('admin.products.*') ? 'bg-blue-50 text-blue-600' : '' }}">
-                    <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"></path>
-                    </svg>
-                    Productos
+                <a class="nav-link {{ request()->routeIs('admin.products.*') ? 'active' : '' }}" href="{{ route('admin.products.index') }}">
+                    <i class="bi bi-box-seam fs-5 me-3"></i>Productos
                 </a>
             </nav>
-        </aside>
+        </div>
+
+        <!-- Botón hamburguesa MÓVIL -->
+        <button class="btn btn-primary d-lg-none position-fixed start-0 top-0 m-3 z-3 shadow" type="button" data-bs-toggle="offcanvas" data-bs-target="#sidebarMenu" style="border-radius: 0 0.5rem 0.5rem 0;">
+            <i class="bi bi-list fs-4"></i>
+        </button>
 
         <!-- Contenido Principal -->
-        <main class="flex-1 overflow-y-auto">
-            <header class="bg-white shadow-sm border-b px-6 py-4">
-                <div class="flex items-center justify-between">
-                    <h2 class="text-2xl font-semibold text-gray-800">@yield('page-title', 'Dashboard')</h2>
-                    <div class="flex items-center space-x-4">
-                        <span class="text-sm text-gray-500">Bienvenido, {{ auth()->user()->name ?? 'Admin' }}</span>
-                        <form method="POST" action="{{ url("/") }}" class="inline">
+        <div class="flex-grow-1 main-content-desktop">
+            <!-- Navbar -->
+            <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm border-bottom px-3 py-2">
+                <div class="container-fluid">
+                    <h2 class="navbar-brand mb-0 h4 fw-bold text-primary">@yield('page-title', 'Dashboard')</h2>
+                    <div class="navbar-nav ms-auto align-items-center">
+                        <span class="nav-link px-3 text-muted">{{ auth()->user()->name ?? 'Admin' }}</span>
+                        <form method="POST" action="{{ route('admin.mantencion') }}" class="d-inline">
                             @csrf
-                            <button type="submit" class="text-sm text-gray-600 hover:text-gray-900">Cerrar Sesión</button>
+                            <button type="submit" class="btn btn-outline-secondary btn-sm">Cerrar Sesión</button>
                         </form>
                     </div>
                 </div>
-            </header>
+            </nav>
 
-            <div class="p-6">
+            <main class="p-4">
                 @yield('content')
-            </div>
-        </main>
+            </main>
+        </div>
     </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
