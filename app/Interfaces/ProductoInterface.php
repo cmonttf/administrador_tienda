@@ -2,6 +2,7 @@
 namespace App\Interfaces;
 
 use App\DAO\ProductoDAO;
+use App\DTO\ProductoDTO;
 
 /**
  * Interface ProductoInterface
@@ -25,4 +26,16 @@ interface ProductoInterface
      * @return array Lista de productos en formato de arreglo.
      */
     public static function obtenerListadoProductos(): array;
+
+    /**
+     * Guarda un nuevo producto en el sistema.
+     *
+     * Recibe un DTO con los datos del producto y persiste la información
+     * en la base de datos. Una vez creado el registro, retorna el
+     * identificador (ID) autoincremental generado.
+     *
+     * @param ProductoDTO $producto DTO con la información del producto a guardar.
+     * @return int ID del producto recién insertado.
+     */
+    public static function guardarProductoNuevo(ProductoDTO $producto): int;
 }
