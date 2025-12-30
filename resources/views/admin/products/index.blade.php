@@ -32,7 +32,7 @@
                         <td style="width: 80px">
                             @if($product->imagen)
                                 <img
-                                    src="{{ asset('storage/' . $product->imagen) }}"
+                                    src="{{ asset("img/productos/{$product->id}/{$product->imagen}") }}"
                                     alt="{{ $product->nombre }}"
                                     class="img-thumbnail"
                                     style="width: 48px; height: 48px; object-fit: cover;"
@@ -50,33 +50,31 @@
                         </td>
 
                         <td>
-                            ${{ number_format($product->precio ?? 0, 0, ',', '.') }}
+                            ${{ number_format($product->precioVenta ?? 0, 0, ',', '.') }}
                         </td>
 
                         <td>
-                            @php($stock = $product->stock ?? 0)
-
-                            @if($stock > 10)
-                                <span class="badge bg-success">{{ $stock }}</span>
-                            @elseif($stock > 0)
-                                <span class="badge bg-warning text-dark">{{ $stock }}</span>
+                            @if($product->stock > 10)
+                                <span class="badge bg-success">{{ $product->stock }}</span>
+                            @elseif($product->stock > 0)
+                                <span class="badge bg-warning text-dark">{{ $product->stock }}</span>
                             @else
-                                <span class="badge bg-danger">{{ $stock }}</span>
+                                <span class="badge bg-danger">{{ $product->stock }}</span>
                             @endif
                         </td>
 
                         <td class="text-end">
-                            <a href="{{ route('admin.products.show', $product) }}"
+                            <a href="{{ route('admin.products.show', $product->id) }}"
                                class="btn btn-sm btn-outline-secondary">
                                 Ver
                             </a>
 
-                            <a href="{{ route('admin.products.edit', $product) }}"
+                            <a href="{{ route('admin.products.edit', $product->id) }}"
                                class="btn btn-sm btn-outline-primary">
                                 Editar
                             </a>
 
-                            <form action="{{ route('admin.products.destroy', $product) }}"
+                            <form action="{{ route('admin.products.destroy', $product->id) }}"
                                   method="POST"
                                   class="d-inline">
                                 @csrf
