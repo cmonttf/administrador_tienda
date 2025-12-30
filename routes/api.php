@@ -26,5 +26,8 @@ Route::prefix('v1')->group(function () {
         Route::get('/productos', [ProductoController::class, 'index'])->name('products.index');
         Route::get('/productos/create', [ProductoController::class, 'create'])->name('products.create');
         Route::post('/productos', [ProductoController::class, 'store'])->name('products.store');
+        Route::get('/productos/show/{id}', [ProductoController::class, 'show'])->name('products.show');
+        Route::get('/productos/edit/{id}', [ProductoController::class, 'edit'])->name('products.edit');
+        Route::get('/productos/destroy/{id}', [ProductoController::class, 'show'])->name('products.destroy');
     });
 });
