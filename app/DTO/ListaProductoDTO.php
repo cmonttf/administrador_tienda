@@ -16,12 +16,14 @@ class ListaProductoDTO
     /**
      * Constructor del DTO de producto.
      *
+     * @param int    $id           Id del producto.
      * @param string $nombre       Nombre del producto.
      * @param string $imagen       Ruta o nombre del archivo de imagen asociado.
      * @param int    $precioVenta  Precio de venta del producto.
      * @param int    $stock        Cantidad disponible en inventario.
      */
     public function __construct(
+        public int $id,
         public string $nombre,
         public string $imagen,
         public int $precioVenta,
