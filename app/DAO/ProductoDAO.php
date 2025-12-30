@@ -1,6 +1,7 @@
 <?php
 namespace App\DAO;
 
+use App\DTO\ProductoDTO;
 use App\Interfaces\ProductoInterface;
 use Illuminate\Support\Facades\DB;
 
@@ -28,6 +29,7 @@ class ProductoDAO implements ProductoInterface
     {
         return DB::table("productos")
             ->select(
+                "id",
                 "nombre",
                 "imagen",
                 "precio_venta as precioVenta",
@@ -35,5 +37,28 @@ class ProductoDAO implements ProductoInterface
             )
             ->get()
             ->toArray();
+    }
+
+    /**
+     * Guarda un nuevo producto en la base de datos.
+     *
+     * Inserta un registro en la tabla `productos` utilizando la información
+     * contenida en el DTO ProductoDTO y retorna el ID autoincremental
+     * generado por la base de datos.
+     *
+     * @param ProductoDTO $producto DTO con los datos del producto a registrar.
+     * @return int ID del producto recién insertado.
+     */
+    public static function guardarProductoNuevo(ProductoDTO $producto): int
+    {
+        return DB::table("productos")
+            ->insertGetId([
+                "nombre" => $producto->nombre,
+                "precio_venta" => $producto->precio,
+                "descripcion" => $producto->descripcion,
+                "stock" => $producto->stock,
+                "precio_costo" => $producto->costo,
+                "imagen" => $producto->imagen
+            ]);
     }
 }
