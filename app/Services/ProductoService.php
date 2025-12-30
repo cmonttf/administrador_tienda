@@ -2,10 +2,12 @@
 namespace App\Services;
 
 use App\DTO\ListaProductoDTO;
+use App\DTO\ProductoDTO;
 use App\Helpers\ConstantesHelper;
+use App\Helpers\ProductoHelper;
 use App\Interfaces\ProductoInterface;
 use Exception;
-
+use Illuminate\Http\UploadedFile;
 
 /**
  * Class ProductoService
@@ -45,6 +47,7 @@ class ProductoService
 
         return array_map(
             fn($dato) => new ListaProductoDTO(
+                $dato->id,
                 $dato->nombre,
                 $dato->imagen,
                 $dato->precioVenta,
@@ -52,5 +55,28 @@ class ProductoService
             ),
             $datos
         );
+    }
+
+    public function guardarProductoNuevo(
+        string $nombre,
+        int $precio,
+        string $descripcion,
+        int $stock,
+        int $costo,
+        UploadedFile $imagen
+    ): bool
+    {
+        $datos = new ProductoDTO(
+            $nombre,
+            $precio,
+            $descripcion,
+            $stock,
+            $costo,
+            $imagen->getClientOriginalName()
+        );
+
+        $id = $this->productoInterface::guardarProductoNuevo($datos);
+
+        return ProductoHelper::guardarImagen($imagen, $id);
     }
 }
