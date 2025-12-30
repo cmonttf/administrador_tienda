@@ -65,7 +65,32 @@ class ProductoController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        try {
+            $request->validate([
+                'nombre' => ['required', 'string'],
+                'precio' => ['required', 'integer'],
+                'descripcion' => ['required', 'string'],
+                'stock' => ['required', 'integer'],
+                'costo' => ['required', 'integer'],
+                'imagen' => ['file']
+            ]);
+
+            $resultado = $this->productoService->guardarProductoNuevo(
+                $request->input("nombre"),
+                $request->input("precio"),
+                $request->input("descripcion"),
+                $request->input("stock"),
+                $request->input("costo"),
+                $request->file('imagen')
+            );
+
+
+
+            return $this->index();
+
+        } catch (Exception $error) {
+            return view("admin.error", ["error" => $error])->render();
+        }
     }
 
     /**
@@ -73,7 +98,7 @@ class ProductoController extends Controller
      */
     public function show(string $id)
     {
-        //
+        return 0;
     }
 
     /**
