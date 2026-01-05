@@ -33,16 +33,10 @@ class ProductoController extends Controller
      */
     public function index(): string
     {
-        $response = new StdResponse("Listado de los productos.");
-
         try {
             $resultado = $this->productoService->obtenerListadoProductos();
-        } catch (Exception $e) {
-            $response->status = false;
-            $response->message = "Error inesperado: {$e->getMessage()}";
-            Log::error($response->message);
-
-            JSONResponse::send($response);
+        } catch (Exception $error) {
+            return view("admin.error", ["error" => $error])->render();
         }
 
         return view("admin.products.index", [
@@ -51,7 +45,13 @@ class ProductoController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Muestra la vista de creación de un nuevo producto.
+     *
+     * Este método renderiza el formulario utilizado para registrar un producto,
+     * inicializando la colección de errores como vacía para evitar validaciones
+     * inexistentes en la primera carga de la vista.
+     *
+     * @return string Vista renderizada del formulario de creación de productos.
      */
     public function create()
     {
@@ -61,7 +61,17 @@ class ProductoController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Procesa la solicitud de creación de un nuevo producto.
+     *
+     * Este método se encarga de:
+     * - Validar los datos enviados desde el formulario.
+     * - Delegar la lógica de negocio al servicio de productos.
+     * - Retornar el listado de productos si la operación es exitosa.
+     * - Manejar excepciones y mostrar una vista de error en caso de fallo.
+     *
+     * @param Request $request Objeto que contiene los datos de la solicitud HTTP.
+     *
+     * @return mixed Vista con el resultado de la operación.
      */
     public function store(Request $request)
     {
@@ -94,11 +104,25 @@ class ProductoController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * Muestra el detalle de un producto específico.
+     *
+     * Este método obtiene la información de un producto a partir de su
+     * identificador, delegando la lógica de negocio al servicio correspondiente.
+     * En caso de error, se renderiza una vista de error.
+     *
+     * @param string $id Identificador del producto a mostrar.
+     *
+     * @return string Vista renderizada con el detalle del producto o la vista de error.
      */
     public function show(string $id)
     {
-        return 0;
+        try {
+            $resultado = $this->productoService->mostrarProductoPorId($id);
+        } catch (Exception $error) {
+            return view("admin.error", ["error" => $error])->render();
+        }
+
+        return view("admin.products.show", ["producto" => $resultado, "id" => $id, "errors" => collect()])->render();
     }
 
     /**
@@ -118,10 +142,27 @@ class ProductoController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Elimina un producto a partir de su identificador.
+     *
+     * Este método delega la eliminación del producto a la capa de servicio.
+     * Si la operación es exitosa, redirige al listado de productos mostrando
+     * un mensaje de confirmación. En caso de error, se renderiza una vista
+     * de error con el detalle de la excepción.
+     *
+     * @param string $id Identificador del producto a eliminar.
+     *
+     * @return string
      */
     public function destroy(string $id)
     {
-        //
+        try {
+            $resultado = $this->productoService->borrarProductoPorId($id);
+        } catch (Exception $error) {
+            return view("admin.error", ["error" => $error])->render();
+        }
+
+        return redirect()
+            ->route('products.index')
+            ->with('alert', "Se ha eliminado el producto {$resultado}");
     }
 }
