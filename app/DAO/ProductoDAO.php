@@ -61,4 +61,31 @@ class ProductoDAO implements ProductoInterface
                 "imagen" => $producto->imagen
             ]);
     }
+
+    /**
+     * Obtiene la información de un producto a partir de su identificador.
+     *
+     * Este método consulta la tabla `productos` y recupera los campos necesarios
+     * para representar un producto, aplicando alias para mantener consistencia
+     * con la capa de dominio.
+     *
+     * @param int $id Identificador único del producto.
+     *
+     * @return array Arreglo de resultados que contiene los datos del producto.
+     */
+    public static function obtenerProductoPorId(int $id): array
+    {
+        return DB::table("productos")
+            ->select(
+                "nombre as nombre",
+                "precio_venta as precioVenta",
+                "descripcion as descripcion",
+                "stock as stock",
+                "precio_costo as precioCosto",
+                "imagen as imagen"
+            )
+            ->where("id", "=", $id)
+            ->get()
+            ->toArray();
+    }
 }
