@@ -6,6 +6,12 @@
 @section('content')
 <div class="container mt-4">
 
+    @if (session("alert"))
+        <div class="alert alert-success">
+            {{ session("alert") }}
+        </div>
+    @endif
+
     <div class="card shadow-sm">
         <div class="card-header d-flex justify-content-between align-items-center">
             <h5 class="mb-0">Lista de Productos</h5>
