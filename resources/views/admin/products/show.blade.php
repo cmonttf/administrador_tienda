@@ -6,7 +6,7 @@
 @section('content')
 <div class="max-w-2xl container">
     <div class="flex justify-between items-center mb-6">
-        <h3 class="text-lg font-medium text-gray-900">Producto $producto->nombre</h3>
+        <h3 class="text-lg font-medium text-gray-900">Producto {{ $producto->nombre }}</h3>
         <a href="{{ route('admin.products.index') }}"
            class="text-gray-600 hover:text-gray-900">
             ← Volver a lista
@@ -84,7 +84,7 @@
         <!-- Imagen -->
         <div class="mt-6">
             <label for="imagen" class="block text-sm font-medium text-gray-700 mb-2">Imagen del Producto</label>
-            <img src="{{ public_path("img/productos/{$producto->id}/{$producto->imagen}") }}" alt="{{ $producto->nombre }}">
+            <img src="{{ asset("img/productos/{$id}/{$producto->imagen}") }}" alt="{{ $producto->nombre }}">
         </div>
     </div>
 
