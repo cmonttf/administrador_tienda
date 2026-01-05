@@ -38,4 +38,16 @@ interface ProductoInterface
      * @return int ID del producto recién insertado.
      */
     public static function guardarProductoNuevo(ProductoDTO $producto): int;
+
+    /**
+     * Obtiene la información de un producto a partir de su identificador.
+     *
+     * Este método debe ser implementado por la clase concreta encargada
+     * de acceder a la fuente de datos y retornar los datos del producto.
+     *
+     * @param int $id Identificador único del producto.
+     *
+     * @return array Arreglo con los datos del producto obtenido.
+     */
+    public static function obtenerProductoPorId(int $id): array;
 }
