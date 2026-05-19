@@ -86,12 +86,7 @@ class ProductoController extends Controller
             ]);
 
             $resultado = $this->productoService->guardarProductoNuevo(
-                $request->input("nombre"),
-                $request->input("precio"),
-                $request->input("descripcion"),
-                $request->input("stock"),
-                $request->input("costo"),
-                $request->file('imagen')
+                $request->all()
             );
 
 
@@ -130,7 +125,13 @@ class ProductoController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        try {
+            $resultado = $this->productoService->mostrarProductoPorId($id);
+        } catch (Exception $error) {
+            return view("admin.error", ["error" => $error])->render();
+        }
+
+        return view("admin.products.edit", ["producto" => $resultado, "id" => $id, "errors" => collect()])->render();
     }
 
     /**
@@ -156,13 +157,13 @@ class ProductoController extends Controller
     public function destroy(string $id)
     {
         try {
-            $resultado = $this->productoService->borrarProductoPorId($id);
+            $this->productoService->borrarProductoPorId($id);
         } catch (Exception $error) {
             return view("admin.error", ["error" => $error])->render();
         }
 
         return redirect()
-            ->route('products.index')
-            ->with('alert', "Se ha eliminado el producto {$resultado}");
+            ->route('admin.products.index')
+            ->with('alert', "Se ha eliminado el producto con id {$id}");
     }
 }
