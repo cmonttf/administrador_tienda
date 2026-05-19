@@ -2,6 +2,8 @@
 
 namespace App\DTO;
 
+use Illuminate\Http\UploadedFile;
+
 /**
  * Data Transfer Object (DTO) para representar un Producto.
  *
@@ -22,7 +24,7 @@ class ProductoDTO extends BaseDTO
      * @param string $descripcion Descripción detallada del producto.
      * @param int    $stock       Cantidad disponible en inventario.
      * @param int    $costo       Costo interno del producto.
-     * @param string $imagen      Ruta o nombre de la imagen asociada al producto.
+     * @param UploadedFile $imagen      Ruta o nombre de la imagen asociada al producto.
      */
     public function __construct(
         public string $nombre,
@@ -30,7 +32,7 @@ class ProductoDTO extends BaseDTO
         public string $descripcion,
         public int $stock,
         public int $costo,
-        public string $imagen
+        public UploadedFile $imagen
     )
     {}
 
