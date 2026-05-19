@@ -2,6 +2,7 @@
 namespace App\DAO;
 
 use App\DTO\ProductoDTO;
+use App\Helpers\ConstantesHelper;
 use App\Interfaces\ProductoInterface;
 use Illuminate\Support\Facades\DB;
 
@@ -87,5 +88,42 @@ class ProductoDAO implements ProductoInterface
             ->where("id", "=", $id)
             ->get()
             ->toArray();
+    }
+
+    /**
+     * Verifica la existencia de un producto a partir de su identificador.
+     *
+     * Este método consulta la tabla `productos` para determinar si existe
+     * un registro asociado al ID proporcionado, sin necesidad de obtener
+     * los datos completos del producto.
+     *
+     * @param int $id Identificador único del producto.
+     *
+     * @return bool Retorna true si el producto existe, false en caso contrario.
+     */
+    public static function existeProductiPorId(int $id): bool
+    {
+        return DB::table("productos")
+            ->where("id", "=", $id)
+            ->exists();
+    }
+
+    /**
+     * Elimina un producto a partir de su identificador.
+     *
+     * Este método intenta eliminar el registro asociado al ID proporcionado
+     * en la tabla `productos`. Retorna true si al menos un registro fue
+     * eliminado, o false si no se eliminó ningún producto.
+     *
+     * @param int $id Identificador único del producto.
+     *
+     * @return bool Retorna true si el producto fue eliminado correctamente,
+     *              false en caso contrario.
+     */
+    public static function eliminarProductoPorId(int $id): bool
+    {
+        return DB::table("productos")
+            ->where("id", "=", $id)
+            ->delete() > ConstantesHelper::CERO;
     }
 }
