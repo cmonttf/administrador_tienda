@@ -50,4 +50,31 @@ interface ProductoInterface
      * @return array Arreglo con los datos del producto obtenido.
      */
     public static function obtenerProductoPorId(int $id): array;
+
+    /**
+     * Verifica si existe un producto a partir de su identificador.
+     *
+     * Este método debe ser implementado por la clase concreta encargada
+     * de consultar la fuente de datos y determinar la existencia del
+     * producto asociado al ID proporcionado.
+     *
+     * @param int $id Identificador único del producto.
+     *
+     * @return bool Retorna true si el producto existe, false en caso contrario.
+     */
+    public static function existeProductiPorId(int $id): bool;
+
+    /**
+     * Elimina un producto a partir de su identificador.
+     *
+     * Este método debe ser implementado por la clase concreta encargada
+     * de acceder a la fuente de datos y realizar la eliminación del
+     * producto asociado al ID proporcionado.
+     *
+     * @param int $id Identificador único del producto.
+     *
+     * @return bool Retorna true si el producto fue eliminado correctamente,
+     *              false en caso contrario.
+     */
+    public static function eliminarProductoPorId(int $id): bool;
 }
