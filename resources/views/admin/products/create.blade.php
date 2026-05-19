@@ -21,20 +21,18 @@
 
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <!-- Nombre -->
-                <div>
+                <div class="mb-3">
                     <label for="nombre" class="block text-sm font-medium text-gray-700 mb-2">Nombre *</label>
-                    <div class="w-full px-3 py-2 border {{ $errors->has('nombre') ? 'border-red-500' : 'border-gray-300' }} rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
-                    <input type="text" name="nombre" id="nombre" value="{{ old('nombre') }}" required>
-                    </div>
+                    <input class="form-control" type="text" name="nombre" id="nombre" value="{{ old('nombre') }}" required>
                 </div>
 
                 <!-- Precio -->
-                <div>
+                <div class="mb-3">
                     <label for="price" class="block text-sm font-medium text-gray-700 mb-2">Precio ($)*</label>
                     <input name="precio"
                         id="precio"
                         rows="4"
-                        class="w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                        class="form-control">
                         {{ old('precio') }}
 
                 </div>
@@ -46,7 +44,7 @@
                 <textarea name="descripcion"
                           id="descripcion"
                           rows="4"
-                          class="w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"></textarea>
+                          class="form-control"></textarea>
             </div>
         </div>
 
@@ -62,7 +60,7 @@
                            id="stock"
                            min="0"
                            value="{{ old('stock', 0) }}"
-                           class="w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                           class="form-control">
                 </div>
 
                 <!-- Costo -->
@@ -72,7 +70,7 @@
                             name="costo"
                             id="costo"
                             value="{{ old('costo', 0) }}"
-                            class="w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                            class="form-control">
 
                 </div>
             </div>
