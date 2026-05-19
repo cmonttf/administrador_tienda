@@ -2,6 +2,7 @@
 namespace App\Services;
 
 use App\DTO\ListaProductoDTO;
+use App\DTO\MensajeDTO;
 use App\DTO\ProductoDTO;
 use App\Helpers\ConstantesHelper;
 use App\Helpers\ProductoHelper;
@@ -46,13 +47,7 @@ class ProductoService
         $datos = $this->productoInterface::obtenerListadoProductos();
 
         return array_map(
-            fn($dato) => new ListaProductoDTO(
-                $dato->id,
-                $dato->nombre,
-                $dato->imagen,
-                $dato->precioVenta,
-                $dato->stock
-            ),
+            fn($dato) => ListaProductoDTO::fromObject($dato),
             $datos
         );
     }
@@ -65,37 +60,20 @@ class ProductoService
      * - Persistir el producto mediante la capa de acceso a datos.
      * - Almacenar la imagen del producto utilizando su identificador.
      *
-     * @param string       $nombre       Nombre del producto.
-     * @param int          $precio       Precio de venta del producto.
-     * @param string       $descripcion  Descripción detallada del producto.
-     * @param int          $stock        Cantidad disponible en inventario.
-     * @param int          $costo        Costo interno del producto.
-     * @param UploadedFile $imagen       Archivo de imagen asociado al producto.
+     * @param array $dato Datos asociados a producto
      *
      * @return bool Retorna true si el producto y su imagen se guardan correctamente,
      *              false en caso de error.
      */
     public function guardarProductoNuevo(
-        string $nombre,
-        int $precio,
-        string $descripcion,
-        int $stock,
-        int $costo,
-        UploadedFile $imagen
+        array $dato
     ): bool
     {
-        $datos = new ProductoDTO(
-            $nombre,
-            $precio,
-            $descripcion,
-            $stock,
-            $costo,
-            $imagen->getClientOriginalName()
-        );
+        $datos = ProductoDTO::fromArray($dato);
 
         $id = $this->productoInterface::guardarProductoNuevo($datos);
 
-        return ProductoHelper::guardarImagen($imagen, $id);
+        return ProductoHelper::guardarImagen($dato["imagen"], $id);
     }
 
     /**
@@ -111,7 +89,7 @@ class ProductoService
      *
      * @throws Exception Si no se encuentran datos asociados al producto.
      */
-    public function mostrarProductoPorId(int $id)
+    public function mostrarProductoPorId(int $id): ProductoDTO
     {
         $resultado = $this->productoInterface::obtenerProductoPorId($id);
 
@@ -129,5 +107,44 @@ class ProductoService
             $dato->precioCosto,
             $dato->imagen
         );
+    }
+
+    public function borrarProductoPorId(int $id): bool
+    {
+        if ($this->productoInterface::existeProductiPorId($id) === ConstantesHelper::FALSO) {
+            throw new Exception("El producto con id {$id} no existe.");
+        }
+
+        $imagen = $this->obtenerNombreImagen($id);
+
+        ProductoHelper::borrarImagen($imagen, $id);
+
+        return $this->productoInterface::eliminarProductoPorId($id);
+    }
+
+    /**
+     * Obtiene el nombre de la imagen asociada a un producto.
+     *
+     * Este método consulta la capa de acceso a datos para recuperar
+     * la información de un producto específico y extrae el nombre
+     * de la imagen asociada. Si el producto no existe, se lanza
+     * una excepción.
+     *
+     * @param int $id Identificador único del producto.
+     *
+     * @return string Nombre del archivo de imagen del producto.
+     *
+     * @throws Exception Si no se encuentra el producto solicitado.
+     */
+    private function obtenerNombreImagen(int $id): string
+    {
+        $datos = $this->productoInterface::obtenerProductoPorId($id);
+        dd($datos);
+
+        if (count($datos) === ConstantesHelper::CERO) {
+            throw new Exception("No se pudo obtener el producto con id {$id}.");
+        }
+
+        return $datos[0]->imagen;
     }
 }
