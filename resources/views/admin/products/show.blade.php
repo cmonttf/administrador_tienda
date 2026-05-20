@@ -18,20 +18,18 @@
 
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
             <!-- Nombre -->
-            <div>
-                <label for="nombre" class="block text-sm font-medium text-gray-700 mb-2">Nombre</label>
-                <div class="w-full px-3 py-2 border {{ $errors->has('nombre') ? 'border-red-500' : 'border-gray-300' }} rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
-                <input type="text" name="nombre" id="nombre" value="{{ $producto->nombre }}" readonly>
-                </div>
+            <div class="mb-3">
+                <label for="nombre" class="form-label">Nombre</label>
+                <input class="form-control" type="text" name="nombre" id="nombre" value="{{ $producto->nombre }}" readonly>
             </div>
 
             <!-- Precio -->
             <div>
-                <label for="price" class="block text-sm font-medium text-gray-700 mb-2">Precio ($)</label>
+                <label for="price" class="form-label">Precio ($)</label>
                 <input name="precio"
                     id="precio"
                     rows="4"
-                    class="w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                    class="form-control"
                     value={{ $producto->precio }}
                     readonly
                 >
@@ -40,13 +38,8 @@
 
         <!-- Descripción -->
         <div class="mt-6">
-            <label for="descripcion" class="block text-sm font-medium text-gray-700 mb-2">Descripción</label>
-            <textarea name="descripcion"
-                id="descripcion"
-                rows="4"
-                class="w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-                readonly
-            >
+            <label for="descripcion" class="form-label">Descripción</label>
+            <textarea name="descripcion" id="descripcion" class="form-control" readonly>
                 {{ $producto->descripcion }}
             </textarea>
         </div>
@@ -56,36 +49,41 @@
         <h4 class="text-lg font-medium text-gray-900 mb-6">Inventario e Imagen</h4>
 
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <!-- Stock -->
-            <div>
-                <label for="stock" class="block text-sm font-medium text-gray-700 mb-2">Stock Inicial</label>
-                <input type="number"
-                        name="stock"
-                        id="stock"
-                        min="0"
-                        value="{{ $producto->stock }}"
-                        readonly
-                        class="w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
-            </div>
+            <class class="mb-6">
+                <!-- Stock -->
+                <label for="stock" class="form-label">Stock Inicial</label>
+                <div class="input-group mb-3">
+                    <input type="text"
+                            name="stock"
+                            id="stock"
+                            value="{{ $producto->stock }}"
+                            readonly
+                            class="form-control">
+                </div>
+            </class>
 
-            <!-- Costo -->
-            <div>
-                <label for="costo" class="block text-sm font-medium text-gray-700 mb-2">Costo ($)*</label>
-                <input type="number"
-                        name="costo"
-                        id="costo"
-                        value="{{ $producto->costo }}"
-                        readonly
-                        class="w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
-
+            <div class="mb-6">
+                <!-- Costo -->
+                <label for="costo" class="form-label">Costo ($)*</label>
+                <div class="input-group mb-3">
+                    <span class="input-group-text">$</span>
+                    <input type="text"
+                            name="costo"
+                            id="costo"
+                            value="{{ $producto->costo }}"
+                            readonly
+                            class="form-control">
+                </div>
             </div>
         </div>
 
         <!-- Imagen -->
-        <div class="mt-6">
-            <label for="imagen" class="block text-sm font-medium text-gray-700 mb-2">Imagen del Producto</label>
-            <img src="{{ asset("img/productos/{$id}/{$producto->imagen}") }}" alt="{{ $producto->nombre }}">
-        </div>
+<div class="mb-6">
+    <label for="imagen" class="form-label">Imagen del Producto</label>
+    <img class="form-control img-producto-preview"
+         src="{{ asset("img/productos/{$id}/{$producto->imagen}") }}"
+         alt="{{ $producto->nombre }}">
+</div>
     </div>
 
     <div class="px-6 py-4 bg-gray-50 border-t border-gray-200">
