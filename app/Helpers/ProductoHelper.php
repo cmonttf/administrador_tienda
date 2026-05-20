@@ -41,18 +41,43 @@ class ProductoHelper
     }
 
     /**
-     * Elimina una imagen del directorio público /img.
+     * Elimina una imagen y su carpeta asociada del directorio público.
      *
-     * - Verifica si el archivo existe.
-     * - Si existe, lo elimina del sistema de archivos.
+     * - Verifica si la imagen existe.
+     * - Elimina el archivo del sistema.
+     * - Si la carpeta queda vacía después de eliminar la imagen,
+     *   también elimina el directorio del producto.
      *
-     * @param string $imagen Nombre del archivo de imagen a eliminar.
-     * @return bool Retorna true si la imagen fue eliminada, false si no existe o falla la eliminación.
+     * @param string $imagen Nombre del archivo de imagen.
+     * @param int $id ID del producto.
+     *
+     * @return bool Retorna true si la imagen fue eliminada correctamente.
      */
     public static function borrarImagen(string $imagen, int $id): bool
     {
-        $ruta = public_path("img/productos/{$id}/{$imagen}");
+        $rutaImagen = public_path("img/productos/{$id}/{$imagen}");
 
-        return file_exists($ruta) && unlink($ruta);
+        // Verifica existencia de la imagen
+        if (!file_exists($rutaImagen)) {
+            return false;
+        }
+
+        // Elimina imagen
+        if (!unlink($rutaImagen)) {
+            return false;
+        }
+
+        // Ruta carpeta producto
+        $rutaCarpeta = public_path("img/productos/{$id}");
+
+        // Obtiene archivos restantes ignorando . y ..
+        $archivos = array_diff(scandir($rutaCarpeta), ['.', '..']);
+
+        // Si la carpeta está vacía, la elimina
+        if (empty($archivos)) {
+            rmdir($rutaCarpeta);
+        }
+
+        return true;
     }
 }
