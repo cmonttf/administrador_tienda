@@ -1,6 +1,7 @@
 <?php
 namespace App\DAO;
 
+use App\DTO\ActualizarProductoDTO;
 use App\DTO\ProductoDTO;
 use App\Helpers\ConstantesHelper;
 use App\Interfaces\ProductoInterface;
@@ -125,5 +126,29 @@ class ProductoDAO implements ProductoInterface
         return DB::table("productos")
             ->where("id", "=", $id)
             ->delete() > ConstantesHelper::CERO;
+    }
+
+    /**
+     * Actualiza la información de un producto en la base de datos.
+     *
+     * Busca el producto mediante su ID y actualiza sus datos
+     * utilizando la información contenida en el DTO.
+     *
+     * @param ActualizarProductoDTO $dato DTO con los nuevos datos del producto.
+     *
+     * @return bool Retorna true si al menos un registro fue actualizado,
+     *              false en caso contrario.
+     */
+    public static function actualizarProducto(ActualizarProductoDTO $dato): bool
+    {
+        return DB::table("productos")
+            ->where("id", "=", $dato->id)
+            ->update([
+                "nombre" => $dato->nombre,
+                "precio" => $dato->precio,
+                "descripcion" => $dato->descripcion,
+                "stock" => $dato->stock,
+                "costo" => $dato->costo
+            ]) > 0;
     }
 }
