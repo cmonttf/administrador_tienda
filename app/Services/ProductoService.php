@@ -1,6 +1,7 @@
 <?php
 namespace App\Services;
 
+use App\DTO\ActualizarProductoDTO;
 use App\DTO\ListaProductoDTO;
 use App\DTO\MensajeDTO;
 use App\DTO\ProductoDTO;
@@ -123,6 +124,30 @@ class ProductoService
     }
 
     /**
+     * Actualiza la información de un producto existente.
+     *
+     * - Verifica si el producto existe en la base de datos.
+     * - Si no existe, lanza una excepción.
+     * - Si existe, transforma los datos recibidos a un DTO
+     *   y ejecuta la actualización mediante el repositorio.
+     *
+     * @param array $dato Datos actualizados del producto.
+     * @param int $id ID del producto a actualizar.
+     *
+     * @throws Exception Se lanza cuando el producto no existe.
+     *
+     * @return bool Retorna true si el producto fue actualizado correctamente.
+     */
+    public function actualizarProducto(array $dato, int $id): bool
+    {
+        if ($this->productoInterface::existeProductiPorId($id) === ConstantesHelper::FALSO) {
+            throw new Exception("El producto con el id {$id} no existe.");
+        }
+
+        return $this->productoInterface::actualizarProducto(ActualizarProductoDTO::fromArray($dato, $id));
+    }
+
+    /**
      * Obtiene el nombre de la imagen asociada a un producto.
      *
      * Este método consulta la capa de acceso a datos para recuperar
@@ -139,7 +164,6 @@ class ProductoService
     private function obtenerNombreImagen(int $id): string
     {
         $datos = $this->productoInterface::obtenerProductoPorId($id);
-        dd($datos);
 
         if (count($datos) === ConstantesHelper::CERO) {
             throw new Exception("No se pudo obtener el producto con id {$id}.");
