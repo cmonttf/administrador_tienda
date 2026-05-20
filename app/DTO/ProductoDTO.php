@@ -51,7 +51,7 @@ class ProductoDTO extends BaseDTO
             descripcion: self::campoObligatorio($dato, "descripcion"),
             stock: self::campoObligatorio($dato, "stock"),
             costo: self::campoObligatorio($dato, "costo"),
-            imagen: self::campoObligatorio($dato, "imagen")
+            imagen: self::campoObligatorio($dato, "imagen")->getClientOriginalName()
         );
     }
 }
