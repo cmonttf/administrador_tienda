@@ -137,9 +137,23 @@ class ProductoController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, int $id)
     {
-        //
+        try {
+            $this->validate($request, [
+                "nombre" => "required|string",
+                "precio" => "required|integer",
+                "descripcion" => "required|string",
+                "stock" => "required|integer",
+                "costo" => "required|integer"
+            ]);
+
+            $this->productoService->actualizarProducto($request->all(), $id);
+        } catch (Exception $error) {
+            return view("admin.error", ["error" => $error])->render();
+        }
+
+        return redirect()->route("admin.products.index")->with("alert", "Se ha actualizado el producto {$id}");
     }
 
     /**
