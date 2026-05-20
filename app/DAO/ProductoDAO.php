@@ -145,10 +145,10 @@ class ProductoDAO implements ProductoInterface
             ->where("id", "=", $dato->id)
             ->update([
                 "nombre" => $dato->nombre,
-                "precio" => $dato->precio,
+                "precio_venta" => $dato->precio,
                 "descripcion" => $dato->descripcion,
                 "stock" => $dato->stock,
-                "costo" => $dato->costo
+                "precio_costo" => $dato->costo
             ]) > 0;
     }
 }
