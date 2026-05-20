@@ -12,7 +12,7 @@
             ← Volver a lista
         </a>
     </div>
-    <form action="{{ route('admin.products.edit', ["id" => $id]) }}" method="POST" enctype="multipart/form-data" class="bg-white shadow overflow-hidden sm:rounded-lg">
+    <form action="{{ route('admin.products.update', ["id" => $id]) }}" method="POST" enctype="multipart/form-data" class="bg-white shadow overflow-hidden sm:rounded-lg">
     @csrf
         <div class="px-6 py-6 border-b border-gray-200">
             <h4 class="text-lg font-medium text-gray-900 mb-6">Información Básica</h4>
@@ -78,7 +78,7 @@
             <!-- Imagen -->
             <div class="mt-6">
                 <label for="imagen" class="block text-sm font-medium text-gray-700 mb-2">Imagen del Producto</label>
-                <img src="{{ asset("img/productos/{$id}/{$producto->imagen}") }}" alt="{{ $producto->nombre }}">
+                <img class="img-producto-preview" src="{{ asset("img/productos/{$id}/{$producto->imagen}") }}" alt="{{ $producto->nombre }}">
             </div>
         </div>
 
