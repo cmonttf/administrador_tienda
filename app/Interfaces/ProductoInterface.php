@@ -2,6 +2,7 @@
 namespace App\Interfaces;
 
 use App\DAO\ProductoDAO;
+use App\DTO\ActualizarProductoDTO;
 use App\DTO\ProductoDTO;
 
 /**
@@ -77,4 +78,14 @@ interface ProductoInterface
      *              false en caso contrario.
      */
     public static function eliminarProductoPorId(int $id): bool;
+
+    /**
+     * Actualiza la información de un producto.
+     *
+     * @param ActualizarProductoDTO $dato DTO con los datos actualizados del producto.
+     *
+     * @return bool Retorna true si la actualización fue exitosa,
+     *              false en caso contrario.
+     */
+    public static function actualizarProducto(ActualizarProductoDTO $dato): bool;
 }
