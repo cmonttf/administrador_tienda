@@ -21,7 +21,7 @@
         </div>
 
         <div class="table-responsive">
-            <table class="table table-hover align-middle mb-0">
+            <table id="tabla" class="table">
                 <thead class="table-light">
                     <tr>
                         <th>Imagen</th>
@@ -60,9 +60,9 @@
                         </td>
 
                         <td>
-                            @if($product->stock > 10)
+                            @if($product->stock > 15)
                                 <span class="badge bg-success">{{ $product->stock }}</span>
-                            @elseif($product->stock > 0)
+                            @elseif($product->stock > 10)
                                 <span class="badge bg-warning text-dark">{{ $product->stock }}</span>
                             @else
                                 <span class="badge bg-danger">{{ $product->stock }}</span>
@@ -108,3 +108,12 @@
 
 </div>
 @endsection
+
+@section("scripts")
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            initDataTable('#tabla');
+        });
+    </script>
+@endsection
+
