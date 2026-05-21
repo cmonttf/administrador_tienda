@@ -7,32 +7,6 @@
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
-    <style>
-        /* Sidebar fija en desktop */
-        @media (min-width: 992px) {
-            .sidebar-desktop {
-                position: fixed !important;
-                top: 0;
-                left: 0;
-                height: 100vh;
-                z-index: 1040;
-                width: 280px;
-                transform: none !important;
-                border-right: 1px solid #dee2e6;
-            }
-            .main-content-desktop {
-                margin-left: 280px;
-            }
-        }
-        .sidebar-nav .nav-link {
-            border-radius: 0.5rem;
-            margin: 0.25rem 1rem;
-        }
-        .sidebar-nav .nav-link.active {
-            background-color: rgba(13, 110, 253, 0.15);
-            color: #0d6efd;
-        }
-    </style>
 </head>
 <body class="bg-light">
     <div class="d-flex min-vh-100">
@@ -82,5 +56,7 @@
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+    @yield("scipts")
 </body>
 </html>
