@@ -1,0 +1,21 @@
+<?php
+
+namespace App\DAO;
+
+use App\Interfaces\DashboardInterface;
+use Illuminate\Support\Facades\DB;
+
+class DashboardDAO implements DashboardInterface
+{
+    public static function obtenerProductosQueSeAcaban(): array
+    {
+        return DB::table("productos")
+            ->select(
+                "nombre",
+                "stock"
+            )
+            ->where("stock", "<", 10)
+            ->get()
+            ->toArray();
+    }
+}
