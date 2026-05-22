@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ProductoController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -18,9 +19,7 @@ Route::prefix('v1')->group(function () {
     })->name('admin.mantencion');
 
     //Route::get('/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
-    Route::get('/dashboard', function () {
-        return view('admin.dashboard'); // crea luego esta vista
-    })->name('admin.dashboard');
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('admin.dashboard');
 
     Route::prefix('admin')->name('admin.')->group(function () {
         Route::get('/productos', [ProductoController::class, 'index'])->name('products.index');
