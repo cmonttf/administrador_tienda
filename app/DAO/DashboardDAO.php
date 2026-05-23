@@ -14,8 +14,13 @@ class DashboardDAO implements DashboardInterface
                 "nombre",
                 "stock"
             )
-            ->where("stock", "<", 10)
+            ->where("stock", "<=", 10)
             ->get()
             ->toArray();
+    }
+
+    public static function obtenerTotalProducto(): int
+    {
+        return DB::table("productos")->count("*");
     }
 }
