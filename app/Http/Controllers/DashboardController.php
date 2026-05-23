@@ -12,14 +12,6 @@ class DashboardController extends Controller
 
     public function index(): string
     {
-        try {
-            $resultados = $this->dashboardService->obtenerDatosDashboard();
-        } catch (Exception $error) {
-            return view("admin.error", ["error" => $error])->render();
-        }
-
-        return view("admin.dashboard", [
-            "resultado" => $resultados
-        ])->render();
+        return view('admin.dashboard')->render();
     }
 }
