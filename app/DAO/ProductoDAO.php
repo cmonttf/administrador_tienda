@@ -55,6 +55,7 @@ class ProductoDAO implements ProductoInterface
     {
         return DB::table("productos")
             ->insertGetId([
+                "sku" => $producto->sku,
                 "nombre" => $producto->nombre,
                 "precio_venta" => $producto->precio,
                 "descripcion" => $producto->descripcion,
@@ -79,6 +80,7 @@ class ProductoDAO implements ProductoInterface
     {
         return DB::table("productos")
             ->select(
+                "sku as sku",
                 "nombre as nombre",
                 "precio_venta as precioVenta",
                 "descripcion as descripcion",
@@ -144,6 +146,7 @@ class ProductoDAO implements ProductoInterface
         return DB::table("productos")
             ->where("id", "=", $dato->id)
             ->update([
+                "sku" => $dato->sku,
                 "nombre" => $dato->nombre,
                 "precio_venta" => $dato->precio,
                 "descripcion" => $dato->descripcion,
