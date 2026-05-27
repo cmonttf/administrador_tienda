@@ -12,7 +12,7 @@ class DashboardService
     public function __construct(private DashboardInterface $dashboardInterface)
     {}
 
-    public function obtenerDatosDashboard()
+    public function obtenerDatosDashboard(): ResultadoDashboardDTO
     {
         $totalStockAcabando = new ProductoCantidadCollection(
             array_map(
