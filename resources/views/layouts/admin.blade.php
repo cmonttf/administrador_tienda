@@ -34,7 +34,7 @@
         </button>
 
         <!-- Contenido Principal -->
-        <div class="flex-grow-1 main-content-desktop">
+        <div class="grow main-content-desktop">
             <!-- Navbar -->
             <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm border-bottom px-3 py-2">
                 <div class="container-fluid">
