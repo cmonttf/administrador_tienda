@@ -3,13 +3,11 @@ namespace App\Services;
 
 use App\DTO\ActualizarProductoDTO;
 use App\DTO\ListaProductoDTO;
-use App\DTO\MensajeDTO;
 use App\DTO\ProductoDTO;
 use App\Helpers\ConstantesHelper;
 use App\Helpers\ProductoHelper;
 use App\Interfaces\ProductoInterface;
 use Exception;
-use Illuminate\Http\UploadedFile;
 
 /**
  * Class ProductoService
