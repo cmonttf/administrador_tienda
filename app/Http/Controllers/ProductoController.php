@@ -74,6 +74,7 @@ class ProductoController extends Controller
     {
         try {
             $request->validate([
+                'sku' => ['required', 'string'],
                 'nombre' => ['required', 'string'],
                 'precio' => ['required', 'integer'],
                 'descripcion' => ['required', 'string'],
@@ -138,6 +139,7 @@ class ProductoController extends Controller
     {
         try {
             $this->validate($request, [
+                "sku" => "required|string",
                 "nombre" => "required|string",
                 "precio" => "required|integer",
                 "descripcion" => "required|string",
