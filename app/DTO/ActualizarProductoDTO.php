@@ -12,6 +12,7 @@ class ActualizarProductoDTO extends BaseDTO
      * Constructor principal del DTO.
      *
      * @param int $id ID del producto a actualizar.
+     * @param string $sku Codigo de barra del producto.
      * @param string $nombre Nombre del producto.
      * @param int $precio Precio de venta del producto.
      * @param string $descripcion Descripción del producto.
@@ -20,6 +21,7 @@ class ActualizarProductoDTO extends BaseDTO
      */
     public function __construct(
         public int $id,
+        public string $sku,
         public string $nombre,
         public int $precio,
         public string $descripcion,
@@ -43,6 +45,7 @@ class ActualizarProductoDTO extends BaseDTO
     {
         return new self(
             id: $id,
+            sku: self::campoObligatorio($dato, "sku"),
             nombre: self::campoObligatorio($dato, "nombre"),
             precio: self::campoObligatorio($dato, "precio"),
             descripcion: self::campoObligatorio($dato, "descripcion"),

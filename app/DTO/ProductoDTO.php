@@ -19,6 +19,7 @@ class ProductoDTO extends BaseDTO
     /**
      * Constructor del DTO Producto.
      *
+     * @param string $sku         Codigo de barra del producto.
      * @param string $nombre      Nombre del producto.
      * @param int    $precio      Precio de venta del producto.
      * @param string $descripcion Descripción detallada del producto.
@@ -27,6 +28,7 @@ class ProductoDTO extends BaseDTO
      * @param string $imagen      Ruta o nombre de la imagen asociada al producto.
      */
     public function __construct(
+        public string $sku,
         public string $nombre,
         public int $precio,
         public string $descripcion,
@@ -46,6 +48,7 @@ class ProductoDTO extends BaseDTO
     public static function fromArray(array $dato): self
     {
         return new self(
+            sku: self::campoObligatorio($dato, "sku"),
             nombre: self::campoObligatorio($dato, "nombre"),
             precio: self::campoObligatorio($dato, "precio"),
             descripcion: self::campoObligatorio($dato, "descripcion"),
