@@ -9,6 +9,7 @@
                 <tr>
 
                     <th>Producto</th>
+                    <th>SKU</th>
                     <th>Stock</th>
 
                 </tr>
@@ -26,6 +27,10 @@
 
                     <td>
                         {{ producto.nombre }}
+                    </td>
+
+                    <td>
+                        {{ producto.sku }}
                     </td>
 
                     <td>
