@@ -12,6 +12,7 @@ class DashboardDAO implements DashboardInterface
         return DB::table("productos")
             ->select(
                 "nombre",
+                "sku",
                 "stock"
             )
             ->where("stock", "<=", 10)
