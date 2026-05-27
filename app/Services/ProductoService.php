@@ -99,12 +99,13 @@ class ProductoService
         $dato = $resultado[0];
 
         return new ProductoDTO(
-            $dato->nombre,
-            $dato->precioVenta,
-            $dato->descripcion,
-            $dato->stock,
-            $dato->precioCosto,
-            $dato->imagen
+            sku: $dato->sku,
+            nombre: $dato->nombre,
+            precio: $dato->precioVenta,
+            descripcion: $dato->descripcion,
+            stock: $dato->stock,
+            costo: $dato->precioCosto,
+            imagen: $dato->imagen
         );
     }
 
