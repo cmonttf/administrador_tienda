@@ -5,9 +5,6 @@ namespace App\Http\Controllers;
 use App\Services\ProductoService;
 use Exception;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Log;
-use StdJsonResponse\JSONResponse;
-use StdJsonResponse\StdResponse;
 
 /**
  * Class ProductoController
